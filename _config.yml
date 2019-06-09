@@ -13,7 +13,7 @@
 # you will see them accessed via {{ site.title }}, {{ site.github_repo }}, and so on.
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
-theme: just-the-docs
+remote_theme: pmarsceill/just-the-docs
 title: n0a110w
 description: a collection of notes, snippets and other goodies
 baseurl: "/notes/" # the subpath of your site, e.g. /blog
