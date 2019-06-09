@@ -14,9 +14,10 @@
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
 remote_theme: pmarsceill/just-the-docs
+color_scheme: "dark"
 title: n0a110w
 description: a collection of notes, snippets and other goodies
-baseurl: "/notes/" # the subpath of your site, e.g. /blog
+baseurl: "/" # the subpath of your site, e.g. /blog
 url: "https://n0a110w.github.io" # the base hostname & protocol for your site, e.g. http://example.com
 
 permalink: pretty
@@ -28,12 +29,11 @@ search_enabled: true
 # Aux links for the upper right navigation
 aux_links:
   "security stuff":
-    - "/blog/notes/security-stuff"
+    - "/notes/security-stuff"
   "sys admin stuff":
-    - "/blog/notes/sys-admin-stuff/"
+    - "/notes/sys-admin-stuff/"
 
 # Color scheme currently only supports "dark" or nil (default)
-color_scheme: "dark"
 
 # Google Analytics Tracking (optional)
 # e.g, UA-1234567-89
