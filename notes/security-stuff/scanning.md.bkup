@@ -1,0 +1,228 @@
+---
+layout: default
+title: Scanning
+nav_order: 11
+---
+
+# Scanning Techiques and Tools
+{: .no_toc }
+
+## Table of contents
+{: .no_toc .text-delta }
+
+1. TOC
+{:toc}
+
+---
+
+## Scanning with Nmap
+
+### Fast scan subnet for targets
+```bash
+# this will output the found hosts to a textfile
+nmap -F -oG - 192.168.1.* | awk '/open/{print $2}' > fastscan.txt
+```
+Further breakdown the list of targets by their service:
+```bash
+# ftp servers
+nmap -Pn -p21 -oG - iL fastscan.txt | awk '/open/{print $2}' > ftp-hosts.txt
+# ssh servers
+nmap -Pn -p22 -oG - iL fastscan.txt | awk '/open/{print $2}' > ssh-hosts.txt
+# http servers
+nmap -Pn -p80,443 -oG - iL fastscan.txt | awk '/open/{print $2}' > http-hosts.txt
+```
+
+### Scanning target subnet for specifc ports
+```bash
+# this will output a text file containing the hosts found to have the open ports we scan for
+nmap -Pn -sV -T4 -oG - -p 21,22,80,443,1433,3389 172.31.2.* | awk '/open/{print $2}' > target-ip-list.txt
+```
+
+### Run a SYN (stealth) scan
+```bash
+# also known as a half-open scan because there is no completion of the three-way handshake. Can help avoid IDS
+nmap -sS -T4 $target
+```
+### Run a full-open (TCP connect) scan
+```bash
+# also known as the TCP connect and full connect scan. it runs the three-way handshake on all ports. easy to detect
+nmap -sT -T4 $target
+```
+### XMAS scan
+```bash
+# will not work on windows because windows is not RFC 793 compliant
+nmap -sX -T4 $target
+```
+### ACK scan
+```bash
+# an ACK packet is sent and header reviewed for RST packet TTL 64< (helps detect firewalls)
+nmap -sA -T4 $target
+```
+### UDP Scan
+```bash
+# slower than TCP scan but important 
+nmap -sU -T4 $target
+# can also be paired with normal TCP scan and set to scan a particular port per protocol
+nmap -sU -sT -p U:$port,T:$port $target
+```
+
+### Intense scan
+```bash
+# enables OS detection, version detection, script scanning and traceroute
+nmap -A -T4 -v $target
+```
+
+### Other Important Options
+* `-iL <file>`	: scan targets FROM text file
+* `v(vv)`		: verbose output
+* `-sn`		: ping scan only, skip port scan
+* `-Pn`		: skip host discovery
+* `-O`		: OS version detection
+* `-sV`		: service version detection
+* `-R`		: force reverse DNS resolution
+* `-n`		: disable reverse DNS resolution
+* `-sS`		: TCP SYN Scan
+* `-sT`		: TCP Connect Scan
+* `-sN`		: TCP Null Scan
+* `-sF`		: TCP FIN Scan
+* `-sA`		: TCP ACK Scan
+* `-sU`		: UDP Scan
+* `-PS`		: TCP SYN Ping
+* `-PA`		: TCP ACK Ping
+* `-PU`		: UDP Ping
+* `-PY`		: SCTP Init Ping
+* `-PE`		: ICMP Echo Ping
+* `-PP`		: Timestamp Ping
+* `-PM`		: Address Mask Ping
+* `-PO`		: Protocol Ping
+* `-PR`		: ARP Ping
+* `-sO`		: IP Protocol Scan
+
+
+### NSE (Nmap Scripting Engine)
+
+Scripts can be invoked by name or category. (category = all, auth, default, discovery, external, intrusive, malware, safe or vuln)
+*Reference:* <https://nmap.org/nsedoc/>
+
+By default, nmap stores scripts at `/usr/share/nmap/scripts/`
+
+A sample custom script is located at `/usr/share/nmap/scripts/intro-nse.nse`
+
+#### Examples
+
+Get help info on a particular script:
+```bash
+nmap --script-help=$script-name
+```
+
+Enumerate all ssh2 supported algorithms and ciphers:
+```bash
+nmap --script ssh2-enum-algos -p22 $target
+```
+
+Fingerprint the SSH server key:
+```bash
+nmap --script ssh-hostkey -p22 $target --script-args ssh_hostkey=full
+```
+
+Scan using default safe scripts:
+```bash
+nmap -sV -sC $target
+```
+
+Scan for well known service vulnerabilities: (Note: this NSE script can be found at <https://github.com/vulnersCom/nmap-vulners>)
+```bash
+nmap -sV --script vulners $target
+```
+
+Scan for a bunch of vulnerabilities using the script category "vuln":
+```bash
+nmap -sV --script vuln $target
+```
+
+Scan using a set of scripts (using wildcard):
+```bash
+nmap -sV --script smb* $target
+```
+
+#### HTTP Screenshot - takes a screenshot of target webservers
+
+Download and install the http-screenshot.nse script from github: <https://github.com/SpiderLabs/Nmap-Tools>
+```bash
+git clone git://github.com/SpiderLabs/Nmap-Tools.git
+cd Nmap-Tools/NSE/
+sudo cp http-screenshot.nse /usr/share/nmap/scripts/
+```
+Perform nmap scan with http-screenshot enabled:
+```bash
+sudo nmap -Pn -T4 -p80 -A --script=http-screenshot -iL target-ip-list.txt
+```
+*Bonus:* It is helpful to compile all of the screenshots into one HTML page for easier viewing. Here's how:
+Create a simple script as so and execute it:
+```bash
+vi screenshot.sh
+    #!/bin/bash
+    printf "<HTML><BODY><BR>" > port-80-screenshots.html
+    ls -1 *.png | awk -F : '{ print $1":"$2"\n<BR><IMG SRC=\""$1"%3A"$2"\" width=400><BR><BR>"}' .>> port-80-screenshots.html
+    printf "</BODY></HTML>" >> port-80-screenshots.html
+```
+That's it! Now you can serve the HTML page to yourself or remotely via SimpleHTTPServer:
+```bash
+python -m SimpleHTTPServer
+```
+
+## Scanning with propecia.c
+> "*A fast class C domain scanner that scans for a specified port.*" Reference: <https://packetstormsecurity.com/files/14232/propecia.c.html>
+
+Download, compile, execute and begin scanning:
+```bash
+wget --no-check-certificate https://dl.packetstormsecurity.net/UNIX/scanners/propecia.c
+gcc propecia.c -o propecia
+sudo cp propecia /bin
+propecia 172.31.6 22
+propecia 172.31.6 80
+propecia 172.31.6 443
+propecia 172.31.6 3389
+```
+
+## Scanning with propecia.py
+> "*A multi-threaded class C network scanner. Loosely based on propecia.c by Bind.*" Reference: <https://github.com/Wh1t3Rh1n0/propecia.py>
+
+Download, execute and begin scanning: 
+```bash
+git clone https://github.com/Wh1t3Rh1n0/propecia.py.git
+cd propecia.py
+python2 propecia.py 192.168.1 22
+python2 propecia.py 192.168.1 80
+python2 propecia.py 192.168.1 443
+python2 propecia.py 192.168.1 3389
+```
+
+## Scanning with ping
+### ping in bash:
+```bash
+for i in {1..254}; do ping -c 1 -W 1 172.31.6.$i | grep 'from'; done
+```
+### ping in windows
+```bash
+for /L %V in (1 1 254) do PING -n 1 192.168.2.%V | FIND /I "Reply"
+```
+## Scanning with netdiscover
+netdiscover is a tool that sends out ARP requests the same way that a switch or router does in order to discover live hosts
+
+Basic Usage:: 
+```bash
+netdiscover -i eth0 -r 192.168.1.0/24
+```
+Fast scan (searched for gateways):
+```bash 
+netdiscover -i eth0 -f
+```
+```
+    -i : specify the network interface to sniff at and inject packets
+    -r : scan a given range
+    -f : enables fastmode scan, only searches for hosts .1 .100 and .254 
+```
+More info on github: <https://github.com/alexxy/netdiscover>
+
+
