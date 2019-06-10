@@ -215,6 +215,7 @@ commit ; save
 ```
 
 ## Configure as OpenVPN Client
+
 - copy the ovpn file to /config/auth/ on the router
 - make sure you have `route-nopull` specified in the config
 1. and then perform the following commands:
