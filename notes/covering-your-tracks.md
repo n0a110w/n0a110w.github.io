@@ -4,15 +4,16 @@ title: Covering Your Tracks
 nav_order: 2
 ---
 
-| Command | Description |
-|:--------|:------------|
-| `echo "" > /var/log/auth.log` | clear auth.log file |
-| `ln /dev/null ~/.bash_history -sf` | permanently send all bash history commands to /dev/null |
-
-- `echo "" > ~/.bash_history` : clear current user bash history
-- `rm ~/.bash_history -rf` : delete .bash_history file
-
 ```bash
+# clear auth.log file
+ln /dev/null ~/.bash_history -sf
+
+# clear current user .bash_history file
+echo "" > ~/.bash_history -rf
+
+# delete ~/.bash_history file
+rm ~/.bash_history -rf
+
 # clear current session history
 history -c
 
