@@ -215,25 +215,22 @@ commit ; save
 ```
 
 ## Configure as OpenVPN Client
-
-- copy the ovpn file to /config/auth/ and then perform the following commands:
+- copy the ovpn file to /config/auth/ on the router
+- make sure you have `route-nopull` specified in the config
+1. and then perform the following commands:
 ```bash
 set interfaces openvpn vtun1 config-file /config/auth/router.ovpn
-set interfaces openvpn vtun1 description 'VPN Out'
+set interfaces openvpn vtun1 description 'VPN Tunnel Out'
 ```
   - Now the interface vtun1 should be listed in the WebUI   
 - Next, perform the following to setup host-specific access to the VPN tunnel:
-1. Add the line "route no-pull" to the bottom of your ovpn file: 
-```bash
-echo "route-nopull" >> router.ovpn"
-```
 2. Add a NAT rule with vtun1 as outbound interface. Source address will be the host IP followed by /32 bitmask. (i.e. 192.168.10.101/32)
 ```bash
 # NAT rules can also be 'more easily' accomplished using the WebUI
-set service nat rule 5100 description 'Outbound NAT to VPN'
+set service nat rule 5100 description 'Outbound NAT to VPN Tunnel'
 set service nat rule 5100 log enable
 set service nat rule 5100 outbound-interface vtun1
-set service nat rule 5100 source address 192.168.10.101/32
+set service nat rule 5100 source address 192.168.10.0/24
 set service nat rule 5100 protocol all
 set service nat rule 5100 type masquerade
 commit && save
@@ -244,8 +241,8 @@ set protocols static table 1 interface-route 0.0.0.0/0 next-hop-interface vtun1
 ```
 4. Create firewall modify rule for each host you want to route through the vpn
 ```bash
-set firewall modify OPENVPN_ROUTE rule 10 description 'traffic from pc to vtun1'
-set firewall modify OPENVPN_ROUTE rule 10 source address 192.168.10.101/32
+set firewall modify OPENVPN_ROUTE rule 10 description 'traffic from 192.168.10.1/24 to vtun1'
+set firewall modify OPENVPN_ROUTE rule 10 source address 192.168.10.0/24
 set firewall modify OPENVPN_ROUTE rule 10 modify table 1
 ```
 5. Apply the firewall modify rule "in" to your LAN interface. This example is applied in interface switch0:
