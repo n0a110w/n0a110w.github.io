@@ -118,6 +118,11 @@ save
 show ubnt offload
 ```
 
+## Create DNS Entries for Static Hosts
+```bash
+set system static-host-mapping host-name host1 inet 10.10.10.10
+```
+
 ## Configure as OpenVPN Server
 <small>*reference: <https://help.ubnt.com/hc/en-us/articles/115015971688-EdgeRouter-OpenVPN-Server>*</small>
 ### Generate certificate + keys
