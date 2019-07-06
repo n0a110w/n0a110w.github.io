@@ -30,7 +30,24 @@ set system time-zone America/New_York
 
 ### Update the firmware
 ```bash
+# show version information
+show version
+
+# show storage information
+show system storage
+show system image storage
+
+# show installed firmware images
+show system image
+
+# remove old system image (free up some space) 
+delete system image
+
+# download new firmware image
 add system image https://dl.ubnt.com/firmwares/edgemax/v1.10.x/ER-e50.v1.10.9.5166958.tar
+
+# set default boot image, if required
+set system image default-boot
 ```
 
 ### Basic LAN Setup (configure eth2, dns forwarding and dhcp to vlan)
