@@ -8,7 +8,7 @@ nav_order: 2
 
 # dig
 
-#### How to use dig (domain information groper) to determine public ipv4 address:  
+How to use dig (domain information groper) to determine public ipv4 address:  
 `dig +short myip.opendns.com @resolver1.opendns.com`
 
 
