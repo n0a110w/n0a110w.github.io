@@ -1,9 +1,14 @@
 ---
 layout: default
-title: Covering Your Tracks
+title: How To Cover Your Tracks 
+parent: security stuff
 nav_order: 2
 ---
 
+1. TOC
+{:toc}
+
+# How to Cover Your Tracks (bash)
 ```bash
 # clear auth.log file
 ln /dev/null ~/.bash_history -sf
@@ -29,3 +34,11 @@ unset HISTFILE
 # kills current session
 kill -9 $$
 ```
+
+## Resources and More
+{: .no_toc }
+### More Links
+{: .no_toc }
+#### Reference
+{: .no_toc }
+
