@@ -9,8 +9,7 @@ permalink: /
 # all things linux
 {: .fs-9 }
 
-...Let this serve as a reference for myself...
-...Just a collection of notes, snippets and other goodies...
+Just a collection of notes, snippets and other goodies..
 {: .fs-6 .fw-300 }
 
 [security stuff](/notes/security-stuff/){: .btn .fs-5 .mb-4 .mb-md-0 }
