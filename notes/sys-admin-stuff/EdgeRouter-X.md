@@ -242,14 +242,21 @@ commit ; save
 - make sure you have `route-nopull` specified in the config
 1. and then perform the following commands:
 ```bash
-set interfaces openvpn vtun1 config-file /config/auth/router.ovpn
-set interfaces openvpn vtun1 description 'VPN Tunnel Out'
+# here i create a new openvpn tunnel "vtun1" with the ovpn config file
+set interfaces openvpn vtun1 config-file /config/auth/america-vpn.ovpn
+set interfaces openvpn vtun1 description 'America VPN Tunnel Out'
+
+# additionally, you can add more tunnels:
+set interfaces openvpn vtun02 config-file /config/auth/turkey-vpn.ovpn
+set interfaces openvpn vtun02 description 'Turkey VPN Tunnel Out'
+
+# commit and now the new interfaces should display in the dashboard
+commit
 ```
-  - Now the interface vtun1 should be listed in the WebUI   
 - Next, perform the following to setup host-specific access to the VPN tunnel:
-2. Add a NAT rule with vtun1 as outbound interface. Source address will be the host IP followed by /32 bitmask. (i.e. 192.168.10.101/32)
+2. Add a NAT rule with the virtual tunnel as the outbound interface. Source address will be the client host or subnet IP. (i.e. 192.168.10.0/24 or 192.168.10.101/32)
 ```bash
-# NAT rules can also be 'more easily' accomplished using the WebUI
+# NAT rules can also be added using the WebUI, it may be easier
 set service nat rule 5100 description 'Outbound NAT to VPN Tunnel'
 set service nat rule 5100 log enable
 set service nat rule 5100 outbound-interface vtun1
@@ -258,15 +265,18 @@ set service nat rule 5100 protocol all
 set service nat rule 5100 type masquerade
 commit && save
 ```
-3. Create a static route using vtun1 interface as next hop
+3. Create a static route using the openvpn tunnel interface as next hop
 ```bash
 set protocols static table 1 interface-route 0.0.0.0/0 next-hop-interface vtun1
+# it is also possible to add more routes for additional vpn tunnels, like so
+set protocols static table 2 interface-route 0.0.0.0/0 next-hop-interface vtun02
 ```
 4. Create firewall modify rule for each host you want to route through the vpn
 ```bash
 set firewall modify OPENVPN_ROUTE rule 10 description 'traffic from 192.168.10.1/24 to vtun1'
 set firewall modify OPENVPN_ROUTE rule 10 source address 192.168.10.0/24
 set firewall modify OPENVPN_ROUTE rule 10 modify table 1
+# add additional rules for additional hosts
 ```
 5. Apply the firewall modify rule "in" to your LAN interface. This example is applied in interface switch0:
 ```bash
