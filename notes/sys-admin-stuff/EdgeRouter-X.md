@@ -226,13 +226,13 @@ set service dns forwarding listen-on vtun0
 commit ; save
 ```
 
-## Configure as OpenVPN Client
-
-- copy the ovpn file to /config/auth/ on the router
-- make sure you have `route-nopull` specified in the config
+## Configure as OpenVPN Client  
+- copy the ovpn file to /config/auth/ on the router  
+- make sure you have `route-nopull` specified in the config  
 
 1. and then perform the following commands:  
-```bash
+
+```
 # here i create a new openvpn tunnel "vtun1" with the ovpn config file
 set interfaces openvpn vtun1 config-file /config/auth/america-vpn.ovpn
 set interfaces openvpn vtun1 description 'America VPN Tunnel Out'
@@ -247,7 +247,7 @@ commit
 
 - Next, perform the following to setup host-specific access to the VPN tunnel:
 2. Add a NAT rule with the virtual tunnel as the outbound interface. Source address will be the client host or subnet IP. (i.e. 192.168.10.0/24 or 192.168.10.101/32)
-```bash
+```
 # NAT rules can also be added using the WebUI, it may be easier
 set service nat rule 5100 description 'Outbound NAT to VPN Tunnel'
 set service nat rule 5100 log enable
@@ -258,20 +258,20 @@ set service nat rule 5100 type masquerade
 commit && save
 ```
 3. Create a static route using the openvpn tunnel interface as next hop
-```bash
+```
 set protocols static table 1 interface-route 0.0.0.0/0 next-hop-interface vtun1
 # it is also possible to add more routes for additional vpn tunnels, like so
 set protocols static table 2 interface-route 0.0.0.0/0 next-hop-interface vtun02
 ```
 4. Create firewall modify rule for each host you want to route through the vpn
-```bash
+```
 set firewall modify OPENVPN_ROUTE rule 10 description 'traffic from 192.168.10.1/24 to vtun1'
 set firewall modify OPENVPN_ROUTE rule 10 source address 192.168.10.0/24
 set firewall modify OPENVPN_ROUTE rule 10 modify table 1
 # add additional rules for additional hosts
 ```
 5. Apply the firewall modify rule "in" to your LAN interface. This example is applied in interface switch0:
-```bash
+```
 set interfaces switch switch0 firewall in modify OPENVPN_ROUTE
 ```
 6. FINISHED!
