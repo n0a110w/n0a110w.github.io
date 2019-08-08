@@ -9,16 +9,6 @@ nav_order: 2
 {:toc}
 
 ## General Setup
-### Create a new user
-```bash
-set system login user <newusername> authentication plaintext-pasword <password>
-commit
-```
-- Verify by logging out and logging in to the new account, then delete the default account 'ubnt'
-```bash
-delete system login user ubnt
-commit && save
-```
 
 ### System Settings
 ```bash
