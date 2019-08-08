@@ -230,7 +230,8 @@ commit ; save
 
 - copy the ovpn file to /config/auth/ on the router
 - make sure you have `route-nopull` specified in the config
-1. and then perform the following commands:
+
+1. and then perform the following commands:  
 ```bash
 # here i create a new openvpn tunnel "vtun1" with the ovpn config file
 set interfaces openvpn vtun1 config-file /config/auth/america-vpn.ovpn
@@ -243,6 +244,7 @@ set interfaces openvpn vtun02 description 'Turkey VPN Tunnel Out'
 # commit and now the new interfaces should display in the dashboard
 commit
 ```
+
 - Next, perform the following to setup host-specific access to the VPN tunnel:
 2. Add a NAT rule with the virtual tunnel as the outbound interface. Source address will be the client host or subnet IP. (i.e. 192.168.10.0/24 or 192.168.10.101/32)
 ```bash
