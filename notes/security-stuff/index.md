@@ -1,6 +1,6 @@
 ---
 layout: default
-title: index
+title: security stuff
 nav_order: 2
 has_children: true
 permalink: /notes/security-stuff

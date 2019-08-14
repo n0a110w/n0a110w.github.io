@@ -2,7 +2,7 @@
 layout: default
 title: home
 nav_order: 1
-description: "Collection of notes and other snippets"
+description: "security and linux goodies"
 permalink: /
 ---
 
