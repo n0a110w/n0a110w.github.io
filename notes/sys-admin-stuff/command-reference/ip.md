@@ -1,7 +1,7 @@
 ---
 layout: default
-title: ip command reference
-parent: tool reference
+title: ip
+parent: command reference
 grand_parent: sys admin stuff
 nav_order: 2
 ---

@@ -1,6 +1,6 @@
 ---
 layout: default
-title: tool reference
+title: command reference
 has_children: true
 parent: sys admin stuff
 ---
