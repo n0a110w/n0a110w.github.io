@@ -39,8 +39,9 @@ openssl ec -noout -text -conv_form compressed -in ~/.weechat/ecdsa.pem | grep '^
 6. reconnect to the server and verify the server automatically identifies you  
 `/reconnect freenode`
 
-Above was my old method, now I use a dedicated raspberry pi2 as a irc bouncer
-After the ZNC server is configured, this is how to connect from a weechat client
+---
+- Above was my old method, now I use a dedicated rpi as a irc bouncer with znc server running 24/7.
+- below is how to connect from a weechat client to the znc server:
 ```
 # How to add and connect to a ZNC server
 /server add server server/6697 -username=username/network -password=password
