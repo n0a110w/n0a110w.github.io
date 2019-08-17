@@ -1,0 +1,52 @@
+---
+layout: default
+title: RPI stuff
+parent: sys admin stuff
+nav_order: 2
+---
+
+1. TOC
+{:toc}
+
+## How to write Raspbian image to SD card using dd
+- If image is zipped, it is possible to unzip the image and pipe it thru dd as so:
+```bash
+unzip -p 2018-11-13-raspbian-stretch.zip | dd of=/dev/sdX bs=4M conv=fsync
+```
+- Otherwise, just use dd to copy the image directly:
+```bash
+unzip -p 2018-11-13-raspbian-stretch.zip | dd of=/dev/sdX bs=4M conv=fsync
+```
+
+- you can check the status by sending the USR1 signal to the dd PID: `kill -USR1 $PID`
+- OR some newer versions of dd allow the argument `status=progress` to be passed when dd is ran
+
+Finally, run Sync to flush the write cache: `sync`
+
+### Enable SSH by default on boot:
+- Create a file with the name 'ssh' in the root of the boot partition
+```bash
+mount /dev/sdc /media/sdc
+touch /media/sdc/ssh
+umount /dev/sdc
+```
+
+---
+
+## How to write RuneAudio image to SD card using dd (dcfldd)
+1. Format SD card
+```bash
+fdisk /dev/sdb
+```
+2. Flash the SD card with RuneAudio image (downloaded from <http://www.runeaudio.com/>)
+```bash
+sudo dcfldd bs=1M if=RuneAudio_rpi2_rp3_0.4-beta_20160321_2GB.img of=/dev/sdd
+sudo sync
+```
+3. Boot!
+
+---
+
+## Resources and More
+{: .no_toc }
+<https://www.raspberrypi.org/documentation/installation/installing-images/linux.md>
