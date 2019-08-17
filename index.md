@@ -6,7 +6,7 @@ description: "security and linux goodies"
 permalink: /
 ---
 
-# all things linux
+### all things linux
 {: .fs-9 }
 
 Just a collection of notes, snippets and other goodies..
