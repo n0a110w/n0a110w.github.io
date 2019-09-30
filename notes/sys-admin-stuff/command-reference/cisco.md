@@ -40,6 +40,7 @@ service password-encryption
 show running-config # show run
 # search running-config for parameters
 show running-config | include enable password
+show running-config | include http 
 
 # show startup configuration (NVRAM)
 show startup-config
@@ -99,6 +100,14 @@ banner motd ^n0a110w woz here^
 # show all interface information (brief)
 show ip interface brief # sh ip int br
 
+# show specific interface
+show interface gigabitEthernet 0/1
+
+# bring interface up / down
+interface gigabitEthernet 0/1
+shut # down
+no shut # up
+
 # determine what type of cable is connected to a serial port
 show controllers serial 0/0/0
 # --- the first few lines of output will help determine the type of cable
@@ -116,10 +125,19 @@ no shutdown # no shut
 # display routing protocols
 show ip protocols
 
+# show routing table
+show ip route
+
 # configure IP address of interface
 interface gigabitEthernet 0/0
 ip address 192.168.10.1 255.255.255.0
 no shut
+
+# show access list
+sh ip access-lists 10
+# remove access list from an interface
+interface gigabitEthernet 0/1
+no ip access-group 10 out
 ```
 
 
