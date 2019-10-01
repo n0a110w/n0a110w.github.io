@@ -40,7 +40,7 @@ service password-encryption
 show running-config # show run
 # search running-config for parameters
 show running-config | include enable password
-show running-config | include http 
+show running-config | include http
 
 # show startup configuration (NVRAM)
 show startup-config
@@ -115,6 +115,7 @@ show controllers serial 0/0/0
 ```
 #### Assign IPv4 Address to VLAN
 ```bash
+# VLAN - switched virtual interface (SVI)
 interface vlan 1
 ip address 192.168.10.10 255.255.255.0
 no shutdown # no shut
@@ -138,6 +139,10 @@ sh ip access-lists 10
 # remove access list from an interface
 interface gigabitEthernet 0/1
 no ip access-group 10 out
+
+# enable https
+ip http secure-server
+
 ```
 
 
