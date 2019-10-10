@@ -9,7 +9,7 @@ nav_order: 2
 1. TOC
 {:toc}
 
-## cisco IOS commands
+## command reference
 ### GENERAL
 #### system info
 ```bash
@@ -118,7 +118,7 @@ sh int fa 1/0/1 cap
 ```
 
 ##### Duplex Settings
-- Note: The default duplex setting for a Cisco device (switch) is auto.
+- Note: The default duplex setting for a Cisco device (switch) is auto.  
 ```bash
 # show an interface's Duplex capabilities
 sh int fa 1/0/1 cap | inc Duplex
@@ -149,8 +149,22 @@ speed 1000
 exit
 ```
 
-##### Collisions
+##### Collisions + other errors
 - Note: Switches, as opposed to hubs, are used to isolate each port to a collision domain of its own. This essentially eliminates all collisions and makes high-speed Ethernet networks much more efficient. If however collisions are detected on a switch port, it is a sign that something is incorrectly configured or that users are misusing the network resources. Such a situation must be investigated.
+```bash
+# show an interface's collisions counter
+sh int fa 1/0/2 | inc collision
+
+# clear the counters from an interface
+# this is helpful in determining if the issue is old or recent or current
+clear counters fa 1/0/2
+
+# Other types of errors:
+# Runts - frames that are smaller than 64 bytes which are usually results of collisions
+# CRC errors - frames that have not passed the frame check sequence test in the trailer of the Ethernet frame
+# Giants - frames that are larger than the maximum size of 1500 bytes
+```
+
 
 
 
