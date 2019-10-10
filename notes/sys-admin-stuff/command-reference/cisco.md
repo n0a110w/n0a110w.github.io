@@ -161,6 +161,7 @@ interface vlan 1
 ip address 192.168.10.10 255.255.255.0
 no shutdown # no shut
 ```
+
 #### IPV6
 Note: Many of the commands that are used for IPv4 are also used for IPv6. The only difference is that instead of using the keyword 'ip', you use the keyword 'ipv6'
 ##### Show ipv6 interface information
@@ -195,7 +196,7 @@ exit
 - Stateless Address Auto Configuration
 - SLAAC is a functionality of IPv6 that doesn't have a counterpart in IPv4. It is enabled by default on interfaces where IPv6 is enabled so there is no further configuration necessary.
 - SLAAC provides global unicast IPv6 addresses to clients from the local router without the use of DHCP
-- Note: SLAAC functions using what are called Router Solicitation (RS) and Router Advertisement (RA) messages. The RS is sent by the client asking for addressing information, and the RA is sent as a response from the router. When a router sends an RA where the M and O flags are set to 0, this indicates to the client that SLAAC is available and IPv6 addressing information will be provided.
+- Note: SLAAC functions using what are called Router Solicitation (RS) and Router Advertisement (RA) messages. The RS is sent by the client asking for addressing information, and the RA is sent as a response from the router. When a router sends an RA where the M and O flags are set to 0, this indicates to the client that SLAAC is available and IPv6 addressing information will be provided.  
 ```bash
 # to ensure SLAAC is enabled on the router, set the M and O flags to "0"
 conf t
