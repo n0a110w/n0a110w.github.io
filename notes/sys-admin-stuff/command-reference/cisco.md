@@ -116,6 +116,7 @@ show controllers serial 0/0/0
 # show interface capabilities
 sh int fa 1/0/1 cap
 ```
+
 ##### Duplex Settings
 - Note: The default duplex setting for a Cisco device (switch) is auto.
 ```bash
@@ -134,6 +135,7 @@ int gigabitEthernet 0/0
 duplex half
 exit
 ```
+
 ##### Speed Settings
 ```bash
 # show an interface's speed capabilities
@@ -146,6 +148,11 @@ speed ?
 speed 1000
 exit
 ```
+
+##### Collisions
+- Note: Switches, as opposed to hubs, are used to isolate each port to a collision domain of its own. This essentially eliminates all collisions and makes high-speed Ethernet networks much more efficient. If however collisions are detected on a switch port, it is a sign that something is incorrectly configured or that users are misusing the network resources. Such a situation must be investigated.
+
+
 
 #### Assign IPv4 Address to VLAN
 ```bash
