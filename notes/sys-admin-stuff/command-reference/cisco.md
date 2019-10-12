@@ -118,7 +118,7 @@ sh int fa 1/0/1 cap
 ```
 
 ##### Duplex Settings
-- Note: The default duplex setting for a Cisco device (switch) is auto.  
+Note: The default duplex setting for a Cisco device (switch) is auto.  
 ```bash
 # show an interface's Duplex capabilities
 sh int fa 1/0/1 cap | inc Duplex
