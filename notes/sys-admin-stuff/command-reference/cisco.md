@@ -258,9 +258,9 @@ exit
 ```
 
 #### Frame Switching Methods
-1) Store-and-Forward
+- Store-and-Forward
   - Store-and-Forward switching does what its name suggests. It receives a frame and stores it in its entirety in the switch buffer before it begins sending it out of its egress port. This allows the switch to read and calculate the Frame Check Sequence which is in the trailer of the frame, to verify that there were no errors in transmission before it sends it out of the egress port. In this scenario, both latency and reliability are increased.
-2) Cut-Through
+- Cut-Through
   - Cut-Through switching begins sending a frame out the egress port before it has been received in its entirety. Switching begins once the destination MAC address has been read from the header of the frame and the egress port has been determined. Here, latency is decreased as is reliability.
 
 #### Frame Flooding
