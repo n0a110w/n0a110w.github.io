@@ -8,6 +8,45 @@ nav_order: 2
 1. TOC
 {:toc}
 
+## Systemd
+### Listing services
+`systemctl` : list running services
+`systemctl --failed` : list failed services
+
+### Managing Targets (similiar to Runlevels in SysV)
+`systemctl get-default` : (dispays the default target for the system)
+`systemctl set-default <target-name>` : (set the default target for the system)
+
+### Managing Services
+`systemctl <start|stop|restart> <service>` : start, stop, or restart a service
+`systemctl reload <service>` : request service to reload its configuration
+`systemctl status <service>` : show current status of service
+
+### Managing autostart of services
+`systemctl is-enabled <service>` : show whether a service is enabled on boot or not
+`systemctl is-active <service>` : show whether a service is currently running (active)
+`systemctl <enable|disable> <service>` : enable/disable a service on boot
+
+### Masking services
+`systemctl mask <service>` : mask a service (makes it hard to start by mistake)
+`systemctl unmask <service>` : unmask a service
+
+### Restart Systemd
+`systemctl daemon-reload`
+
+
+### Diagnosing problems with a service
+`journalctl -xe` : loads the last 1000 logged lines into a pager, jumping to the end
+`journalctl -f` : follow log messages as they come in
+`journalctl -f -t sshd` follow logs for a particular service, in this case "sshd"
+`journalctl -p err -S yesterday` : show all items logged as errors since yesterday
+`tail -f /var/log/messages` : If journalctl is not available, most services on the system log to /var/log/messages
+`tail -f /var/log/secure` : Or, if the service is privileged, it may log sensitive data to /var/log/secure
+
+
+
+
+
 ## Service Management
 
 | SysVInit | Systemd | Notes |

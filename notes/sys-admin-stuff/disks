@@ -1,0 +1,31 @@
+---
+layout: default
+title: disk stuff
+parent: sys admin stuff
+nav_order: 2
+---
+
+1. TOC
+{:toc}
+
+```bash
+# to see specific information about a disk
+hdparm -i /dev/sdc
+
+# do a read speed test
+hdparm -tT /dev/sdc
+
+# S.M.A.R.T stuff
+# show everything about the disk
+smartctl -a /dev/sdc
+# how long has the disk been powered on in total
+smartctl -A /dev/sdc | grep Power_On_Hours
+
+# test for unreadable blocks on disk
+badblocks -s /dev/sdc
+```
+
+
+
+## Resources and More
+{: .no_toc }
