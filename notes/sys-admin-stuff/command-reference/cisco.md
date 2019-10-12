@@ -150,7 +150,7 @@ exit
 ```
 
 ##### Collisions + other errors
-Note: Switches, as opposed to hubs, are used to isolate each port to a collision domain of its own. This essentially eliminates all collisions and makes high-speed Ethernet networks much more efficient. If however collisions are detected on a switch port, it is a sign that something is incorrectly configured or that users are misusing the network resources. Such a situation must be investigated.
+Note: Switches, as opposed to hubs, are used to isolate each port to a collision domain of its own. This essentially eliminates all collisions and makes high-speed Ethernet networks much more efficient. If however collisions are detected on a switch port, it is a sign that something is incorrectly configured or that users are misusing the network resources. Such a situation must be investigated.   
 ```bash
 # show an interface's collisions counter
 sh int fa 1/0/2 | inc collision
@@ -211,7 +211,7 @@ exit
 - SLAAC is a functionality of IPv6 that doesn't have a counterpart in IPv4. It is enabled by default on interfaces where IPv6 is enabled so there is no further configuration necessary.
 - SLAAC provides global unicast IPv6 addresses to clients from the local router without the use of DHCP
 - Note: SLAAC functions using what are called Router Solicitation (RS) and Router Advertisement (RA) messages. The RS is sent by the client asking for addressing information, and the RA is sent as a response from the router. When a router sends an RA where the M and O flags are set to 0, this indicates to the client that SLAAC is available and IPv6 addressing information will be provided.
- 
+
 ```bash
 # to ensure SLAAC is enabled on the router, set the M and O flags to "0"
 conf t
