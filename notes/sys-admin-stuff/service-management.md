@@ -81,3 +81,6 @@ nav_order: 2
 
 ## Resources and More
 {: .no_toc}
+
+[Init System Debate - Debian wiki](https://wiki.debian.org/Debate/initsystem/sysvinit)  
+[Comparison of Init Systems - Gentoo wiki](https://wiki.gentoo.org/wiki/Comparison_of_init_systems)  
