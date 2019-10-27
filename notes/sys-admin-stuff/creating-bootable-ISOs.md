@@ -16,8 +16,7 @@ There is a special case that when booting on an old macmini1,1 (early 2006 model
 
 ### Devuan
 ```bash
-# devuan
-# tested with devuan ascii 2.1 i386
+# devuan, tested with devuan ascii 2.1 i386
 # first, mount the existing ISO temporarily so that it can be "unpacked"
 mount -o loop devuan-live.iso /mnt/tmp
 # then, copy the contents of the mounted image to a working direcory (ie myiso)
@@ -31,8 +30,7 @@ xorriso -as mkisofs -r -J -joliet-long -rr -l -partition_offset 16 -V devuan-liv
 
 ### PuppyLinux
 ```bash
-# puppy linux
-# tested with bionicpup32
+# puppy linux, tested with bionicpup32
 # first, mount the existing ISO temporarily so that it can be "unpacked"
 mount -o loop bionicpup32-8.0-uefi.iso /mnt/tmp
 # then, copy the contents of the mounted image to a working direcory (ie myiso)
