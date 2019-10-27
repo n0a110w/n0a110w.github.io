@@ -9,7 +9,7 @@ nav_order: 2
 {:toc}
 
 ### Sysfs
-Sysfs is a virtual file system mounted at `/sys` used to facilitate information exchange between the kernel and user space. ("virtual" meaning that no real files exist on any storage devices)
+Sysfs is a virtual file system mounted at `/sys` used to facilitate information exchange between the kernel and user space. 
 - kernel objects are directories
 - object attributes are simple files
 - object relationships are symbolic links
