@@ -67,6 +67,7 @@ lvremove /dev/myvg0/snapshot0
 
 ## Other Commands
 ### Physical Volumes
+
 | command     | description     |
 | :------------- | :------------- |
 | `pvs` | display information about physical volumes |
@@ -77,6 +78,7 @@ lvremove /dev/myvg0/snapshot0
 | `pvmove` | move the logical extents on a physical volume |
 
 ### Volume Groups
+
 | command | description     |
 | :------------- | :------------- |
 | `vgs` | display information about volume groups |
@@ -89,6 +91,7 @@ lvremove /dev/myvg0/snapshot0
 | `vgreduce` | remove a physical volume from a volume group |
 
 ### Logical Volumes
+
 | command | description     |
 | :------------- | :------------- |
 | `lvs` | display information about logical volumes |
