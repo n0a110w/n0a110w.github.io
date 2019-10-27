@@ -11,7 +11,11 @@ nav_order: 2
 
 ## Build BIOS only ISO (no isohybrid)
 ```bash
-# this is a special case that when booting on an old macmini1,1 (early 2006 model) if there is more than one El Torito boot record on the disc, the firmware gets confused and hangs. most, if not all, distros now include 2 El Torito boot records (one for BIOS boot and one for EFI boot) so are incapable of booting on the old macmini1,1 firmware. In order to workaround this issue, it is necessary to repack the image as a noUEFI, nohybrid ISO.
+# this is a special case that when booting on an old macmini1,1 (early 2006 model)
+# if there is more than one El Torito boot record on the disc, the firmware gets confused and hangs.
+# most, if not all, distros now include 2 El Torito boot records (one for BIOS boot and one for EFI boot)
+# so are incapable of booting on the old macmini1,1 firmware. In order to workaround this issue,
+# it is necessary to repack the image as a noUEFI, nohybrid ISO.
 
 # below are the commands necessary to generate the correct nonhybrid ISOs for different distros
 # devuan
