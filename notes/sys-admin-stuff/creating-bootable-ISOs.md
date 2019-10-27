@@ -23,12 +23,10 @@ nav_order: 2
 # tested with devuan ascii 2.1 i386
 # first, mount the existing ISO temporarily so that it can be "unpacked"
 mount -o loop devuan-live.iso /mnt/tmp
-
 # then, copy the contents of the mounted image to a working direcory (ie myiso)
 mkdir myiso
 cp -r /mnt/tmp/* myiso/
 umount /mnt/tmp
-
 # finally, generate the image
 cd myiso/
 xorriso -as mkisofs -r -J -joliet-long -rr -l -partition_offset 16 -V devuan-live -b isolinux/isolinux.bin -c isolinux/boot.cat -no-emul-boot -boot-load-size 4 -boot-info-table -eltorito-alt-boot -o devuani386-nohybrid-live.iso .
@@ -37,15 +35,12 @@ xorriso -as mkisofs -r -J -joliet-long -rr -l -partition_offset 16 -V devuan-liv
 
 # puppy linux
 # tested with bionicpup32
-
 # first, mount the existing ISO temporarily so that it can be "unpacked"
 mount -o loop bionicpup32-8.0-uefi.iso /mnt/tmp
-
 # then, copy the contents of the mounted image to a working direcory (ie myiso)
 mkdir myiso
 cp -r /home/user_name/mnt/* myiso/
 umount /mnt/tmp
-
 # finally, generate the image
 cd myiso
 /usr/bin/mkisofs -o /home/user_name/Bionicpup32-nohybrid.iso -v -J -R -D -A Bionicpup -V Bionicpup -no-emul-boot -boot-info-table -boot-load-size 4 -b isolinux.bin -c isolinux.boot .
