@@ -18,6 +18,7 @@ In order to workaround this issue, it is necessary to repack the image as a noUE
 - Below are the commands necessary to generate the correct nonhybrid ISOs for different distros  
 
 ### Devuan
+<small>https://devuan.org/</small>
 ```bash
 # devuan
 # tested with devuan ascii 2.1 i386
@@ -52,3 +53,5 @@ cd myiso
 
 ## Resources and More
 {: .no_toc }
+- [Devuan - Official Site](https://devuan.org)
+- [PuppyLinux Bionic Beaver32 - Official Release](http://murga-linux.com/puppy/viewtopic.php?t=113244)  
