@@ -141,3 +141,4 @@ sudo systemctl restart nagios.service
 
 ## Resources and More
 {: .no_toc }
+- [Installing Nagios Core From Source - Official Docs](https://support.nagios.com/kb/article/nagios-core-installing-nagios-core-from-source-96.html)  
